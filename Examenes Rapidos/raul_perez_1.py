@@ -244,3 +244,88 @@ figura(4, 3)
 # >>> E = 3*B + C
 # error "Si no son de la misma dimension las matrices no se pueden sumar"
 
+class Matriz:
+
+    def __init__(self, n=1, m=1, llenado='ceros'):
+        self.matriz = []
+        self.n = n # filas
+        self.m = m # columnas
+        self.llenado = llenado
+        self.llenar()
+    
+    def __str__(self):
+        matriz_str = ''
+        for i in range(self.n):
+            matriz_str += str(self.matriz[i]) + '\n'
+        matriz_str = matriz_str.replace('[', '').replace(']', '').replace(',', '')
+        return matriz_str
+
+    def llenar(self):
+        if self.llenado == 'unos':
+            self.matriz = [ [1 for i in range(self.m)] for j in range(self.n) ]  
+        elif self.llenado == 'diag':
+            try:
+                if self.n != self.m:
+                    raise Exception("No se puede crear crear la diagonal, no es una matriz cuadrada")
+                for i in range(self.n):
+                    self.matriz.append([])
+                    for j in range(self.m):
+                        self.matriz[i].append( 0 if i!=j else 1 )
+            except Exception as e:
+                print("Error: {}, se llenara con ceros".format(e))
+                self.llenado = 'ceros'
+                self.llenar()
+                
+        else:
+            self.matriz = [ [0 for i in range(self.m)] for j in range(self.n) ]
+
+    def __add__(self, matriz_b):
+        try:
+            if self.n != matriz_b.n or self.m != matriz_b.m:
+                raise Exception("Deben ser del mismo tamaño")
+
+            matriz_r = Matriz(self.n, self.m)
+            matriz_r.matriz = [ [self.matriz[i][j]+matriz_b.matriz[i][j] for i in range(self.n)] for j in range(self.m) ]    
+            
+            return matriz_r
+
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None
+    
+    def __mul__(self, matriz_b):
+        try:
+            if self.m != matriz_b.n:
+                raise Exception("El numero de filas de 'a' debe ser igual al numero de columnas de 'b'")
+
+            matriz_r = Matriz(self.n, matriz_b.m)
+            
+            for i in range(self.n):
+                matriz_r.matriz[i] = [ [ sum( [ self.matriz[i][k] * matriz_b.matriz[k][j] for k in range(self.m) ] ) ] for j in range(matriz_b.m) ] 
+            
+            return matriz_r
+
+        except Exception as e:
+            print("Error: {}".format(e))
+            return None
+
+    def __rmul__(self, escalar):
+        matriz_r = Matriz(self.n, self.m)
+        matriz_r.matriz = [ [ escalar*self.matriz[i][j] for i in range(self.n) ] for j in range(self.m) ]
+        return matriz_r
+
+    def quitarFila(self, indice):
+        try:
+            del self.matriz[indice]
+            self.n -= 1
+            if self.n == 0: self.m = 0
+        except Exception as e:
+            print("Error al eliminar la fila con indice {}: {}".format(indice, e))
+
+    def quitarColumna(self, indice):
+        for i in range(0, self.n):
+            del self.matriz[i][indice]
+        self.m -= 1
+        if self.m == 0: self.n = 0
+
+print(5 * Matriz(3, 3, 'diag'))
