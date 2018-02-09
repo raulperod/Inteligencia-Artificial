@@ -86,7 +86,6 @@ if __name__ == "__main__":
     generaciones = 100
     prob_mutacion = 0.05
 
-    alg_gen = genetico.GeneticoPermutaciones(ProblemaNreinas(16),
-                                             n_poblacion, prob_mutacion)
+    alg_gen = genetico.GeneticoPermutaciones(ProblemaNreinas(8),n_poblacion, prob_mutacion)
 
     solucion = prueba_genetico(alg_gen, generaciones, True)

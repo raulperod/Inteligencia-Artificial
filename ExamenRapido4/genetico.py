@@ -10,7 +10,7 @@ como el problema de las n-reinas o el agente viajero.
 
 import random
 
-__author__ = 'Julio Waissman Vilanova'
+__author__ = 'Raul Perez'
 
 
 class Problema:
@@ -40,7 +40,7 @@ class Genetico:
     def __init__(self, problema, n_poblacion):
         """
         Inicialización de la clase
-        @param problema: Objeto de la clase entorno.Problema el cul debe de
+        @param problema: Objeto de la clase entorno.Problema el cual debe de
                          tener implementada al menos dos métodos básicos:
                          `estado_aleatorio(self, x), y costo(self, x)
         @param n_poblacion: Entero, tamaño de la población, la cual se
