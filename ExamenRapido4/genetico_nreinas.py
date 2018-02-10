@@ -58,6 +58,54 @@ def prueba_genetico(algo_genetico, n_generaciones, verbose=False):
             t_final - t_inicial))
     return solucion
 
+def prueba_genetico_2():
+    n_reinas = 100 #[8, 16, 32, 64, 100]
+    n_poblacion = [150, 175]
+    generaciones = [500]
+    prob_mutacion = [0.001, 0.005]
+    repeticiones = 5
+    mejores = []
+    """
+    for np in n_poblacion:
+        for gen in generaciones:
+            for pm in prob_mutacion:
+                tiempo = 0
+                costo = 0
+                for r in range(repeticiones):
+                    alg_gen = genetico.GeneticoPermutaciones(ProblemaNreinas(n_reinas), np, pm)
+                    t_inicial = time()
+                    solucion = alg_gen.busqueda(gen)
+                    t_final = time()
+                    tiempo += t_final - t_inicial
+                    costo += alg_gen.problema.costo(solucion)
+                tiempo /= repeticiones
+                costo /= repeticiones        
+                # guardo los mejores
+                if costo < 0.05:
+                    mejores.append([n_reinas, np, gen, pm, costo, tiempo]) 
+    """
+    
+    mejores = [[100, 150, 500, 0.005, 0.0, 225.20717706680298]]
+    rep = 10
+    mejores_2 = []
+    # repeticiones con los mejores casos
+    for mejor in mejores:
+        tiempo = 0
+        costo = 0
+        for r in range(rep):
+            alg_gen = genetico.GeneticoPermutaciones(ProblemaNreinas(mejor[0]), mejor[1], mejor[3])
+            t_inicial = time()
+            solucion = alg_gen.busqueda(mejor[2])
+            t_final = time()
+            tiempo += t_final - t_inicial
+            costo += alg_gen.problema.costo(solucion)
+        tiempo /= rep
+        costo /= rep
+        if costo < 0.05:
+            mejores_2.append([mejor[0], mejor[1], mejor[2], mejor[3], costo, tiempo]) 
+    
+    for mejor in mejores_2:
+        print(mejor)
 
 if __name__ == "__main__":
 
@@ -77,15 +125,22 @@ if __name__ == "__main__":
     #   -- ¿Cuales son en cada caso los mejores valores?  (escribelos
     #       abajo de esta linea)
     #
+    #    n reinas |  Poblacion |   Generaciones  |  Probabilidad  |    Tiempo     |    MenorCosto   |   Costo Promedio |  repeticiones
+    #       08           50             25               0.10          0.15 seg            0                 0.0              100
+    #       16          100            150               0.05          1.72 seg            0                 0.0              100
+    #       32          150            300               0.005         13.18 seg           0                 0.2              20
+    #       64          200            400               0.005         81.21 seg           0                 0.0              20
+    #      100          150            400               0.005          
+    #             
+    #   Debido a que con una n > 32, es bastante lento para buscar el mejor costo, solo se repitieron 20 veces o menos para 
+    #   comprobar el valor del mismo
     #
     #   -- ¿Que reglas podrías establecer para asignar valores segun
     #       tu experiencia?
+    #            
+    #      Para mayor numero de n, se debe aumentar el valor de la poblacion y del numero de generaciones, y disminuir 
+    #      la probabilidad de mutacion 
+    #
     #
 
-    n_poblacion = 64
-    generaciones = 100
-    prob_mutacion = 0.05
-
-    alg_gen = genetico.GeneticoPermutaciones(ProblemaNreinas(8),n_poblacion, prob_mutacion)
-
-    solucion = prueba_genetico(alg_gen, generaciones, True)
+    prueba_genetico_2()
