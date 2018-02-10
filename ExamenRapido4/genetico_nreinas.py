@@ -10,7 +10,7 @@ from itertools import combinations
 from random import shuffle
 import genetico
 
-__author__ = 'juliowaissman'
+__author__ = 'Raul Perez'
 
 
 class ProblemaNreinas(genetico.Problema):
