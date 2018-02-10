@@ -65,7 +65,7 @@ def prueba_genetico_2():
     prob_mutacion = [0.001, 0.005]
     repeticiones = 5
     mejores = []
-    """
+
     for np in n_poblacion:
         for gen in generaciones:
             for pm in prob_mutacion:
@@ -83,9 +83,7 @@ def prueba_genetico_2():
                 # guardo los mejores
                 if costo < 0.05:
                     mejores.append([n_reinas, np, gen, pm, costo, tiempo]) 
-    """
     
-    mejores = [[100, 150, 500, 0.005, 0.0, 225.20717706680298]]
     rep = 10
     mejores_2 = []
     # repeticiones con los mejores casos
@@ -105,7 +103,7 @@ def prueba_genetico_2():
             mejores_2.append([mejor[0], mejor[1], mejor[2], mejor[3], costo, tiempo]) 
     
     for mejor in mejores_2:
-        print(mejor)
+        print("NReinas = {}, Poblacion = {}, Generaciones = {}, Probabilidad = {}, Costo = {}, Tiempo = {}".format(mejor[1],mejor[2],mejor[3],mejor[4],mejor[5]))
 
 if __name__ == "__main__":
 
@@ -126,14 +124,14 @@ if __name__ == "__main__":
     #       abajo de esta linea)
     #
     #    n reinas |  Poblacion |   Generaciones  |  Probabilidad  |    Tiempo     |    MenorCosto   |   Costo Promedio |  repeticiones
-    #       08           50             25               0.10          0.15 seg            0                 0.0              100
-    #       16          100            150               0.05          1.72 seg            0                 0.0              100
-    #       32          150            300               0.005         13.18 seg           0                 0.2              20
-    #       64          200            400               0.005         81.21 seg           0                 0.0              20
-    #      100          150            400               0.005          
+    #       08           50             25               0.10           0.15 seg           0                 0.0              100
+    #       16          100            150               0.05           1.72 seg           0                 0.0              100
+    #       32          150            300               0.005         13.18 seg           0                 0.05              20
+    #       64          200            400               0.005         81.21 seg           0                 0.05              20
+    #      100          150            400               0.005        392.68 seg           0                 0.1               10
     #             
-    #   Debido a que con una n > 32, es bastante lento para buscar el mejor costo, solo se repitieron 20 veces o menos para 
-    #   comprobar el valor del mismo
+    #   Debido a que con una n > 32, es bastante lento buscar el mejor costo, solo se repitieron 20 veces o menos para 
+    #   comprobar el valor del mismo, en los otros casos se comprobo con 100 repeticiones que diera 0 el costo
     #
     #   -- ¿Que reglas podrías establecer para asignar valores segun
     #       tu experiencia?
